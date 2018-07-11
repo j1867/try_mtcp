@@ -652,8 +652,8 @@ RunWgetMain(void *arg)
 
 			} else if (events[i].events & MTCP_EPOLLIN) {
 				fprintf(stderr, "HandleReadEvent!!!!!!!!!!!!!!!!!!!\n");
-				HandleReadEvent(ctx, 
-						events[i].data.sockid, &wvars[events[i].data.sockid]);
+				//HandleReadEvent(ctx, 
+				//		events[i].data.sockid, &wvars[events[i].data.sockid]);
 
 			} else if (events[i].events == MTCP_EPOLLOUT) {
 				struct wget_vars *wv = &wvars[events[i].data.sockid];
