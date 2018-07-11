@@ -542,7 +542,7 @@ main(int argc, char **argv)
 		TRACE_ERROR("mTCP configuration file is not set!\n");
 		exit(EXIT_FAILURE);
 	}
-	
+	///////
 	ret = mtcp_init(conf_file);
 	if (ret) {
 		TRACE_ERROR("Failed to initialize mtcp.\n");
