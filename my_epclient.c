@@ -119,6 +119,14 @@ struct wget_vars
 	struct timeval t_start;
 	struct timeval t_end;
 };
+
+struct timeval total_start;
+struct timeval total_end;
+static uint64_t total_byte_send;
+
+
+
+
 static struct thread_context *g_ctx[MAX_CPUS] = {0};
 static struct wget_stat *g_stat[MAX_CPUS] = {0};
 
@@ -355,15 +363,12 @@ RunSendDataMain(void *arg)
 
 		/* print statistics every second */
 		if (core == 0 && cur_tv.tv_sec > prev_tv.tv_sec) {
-		  	//PrintStats();
+		  	PrintStats();
 			prev_tv = cur_tv;
 		}
-///////////////////////////////////////////////////////////
 
 		while (ctx->pending < concurrency && ctx->started < ctx->target) {
-			int to_debug = CreateConnection(ctx) ;
-			fprintf(stderr, "%d\n", to_debug);
-			if (to_debug < 0) {
+			if (CreateConnection(ctx)  < 0) {
 				done[core] = TRUE;
 				break;
 			}
