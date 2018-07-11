@@ -72,10 +72,10 @@ static in_addr_t saddr;
 /*----------------------------------------------------------------------------*/
 static int total_flows;
 static int flows[MAX_CPUS];
-static int flowcnt = 0;
+
 static int concurrency;
 static int max_fds;
-static int response_size = 0;
+
 /*----------------------------------------------------------------------------*/
 struct wget_stat
 {
@@ -537,9 +537,6 @@ main(int argc, char **argv)
 	TRACE_CONFIG("# of total_flows: %d\n", total_flows);
 	TRACE_CONFIG("# of cores: %d\n", core_limit);
 	TRACE_CONFIG("Concurrency: %d\n", total_concurrency);
-	if (fio) {
-		TRACE_CONFIG("Output file: %s\n", outfile);
-	}
 
 	if (conf_file == NULL) {
 		TRACE_ERROR("mTCP configuration file is not set!\n");
