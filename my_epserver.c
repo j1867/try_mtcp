@@ -416,7 +416,7 @@ main(int argc, char **argv)
 	core_limit = num_cores;
 	process_cpu = -1;
 
-
+	fprintf(stderr, "This is my own server~~~~~~~~\n");
 	while (-1 != (o = getopt(argc, argv, "N:f:c:b:h"))) {
 		switch (o) {
 		case 'N':
