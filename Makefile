@@ -84,11 +84,11 @@ epserver: my_epserver.o ${MTCP_FLD}/lib/libmtcp.a
 	$(MSG) "   LD $<"
 	$(HIDE) ${CC} $< ${LIBS} ${UTIL_OBJ} -o $@
 
-epwget.o: epwget.c
+my_epclient.o: my_epclient.c
 	$(MSG) "   CC $<"
 	$(HIDE) ${CC} -c $< ${CFLAGS} ${INC}
 
-epwget: epwget.o ${MTCP_FLD}/lib/libmtcp.a
+epwget: my_epclient.o ${MTCP_FLD}/lib/libmtcp.a
 	$(MSG) "   LD $<"
 	$(HIDE) ${CC} $< ${LIBS} ${UTIL_OBJ} -o $@
 
