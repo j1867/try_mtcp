@@ -331,6 +331,7 @@ HandleReadEvent(thread_context_t ctx, int sockid, struct wget_vars *wv)
 		rd = mtcp_read(mctx, sockid, buf, BUF_SIZE);
 		if (rd <= 0)
 			break;
+		fprintf(stderr, "%s", buf);
 		ctx->stat.reads += rd;
 
 		TRACE_APP( "Socket %d: mtcp_read ret: %d, total_recv: %lu, "
