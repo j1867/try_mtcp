@@ -76,11 +76,11 @@ endif
 
 all: epserver epwget
 
-epserver.o: epserver.c
+my_epserver.o: my_epserver.c
 	$(MSG) "   CC $<"
 	$(HIDE) ${CC} -c $< ${CFLAGS} ${INC}
 
-epserver: epserver.o ${MTCP_FLD}/lib/libmtcp.a
+epserver: my_epserver.o ${MTCP_FLD}/lib/libmtcp.a
 	$(MSG) "   LD $<"
 	$(HIDE) ${CC} $< ${LIBS} ${UTIL_OBJ} -o $@
 
