@@ -333,7 +333,7 @@ HandleReadEvent(thread_context_t ctx, int sockid, struct wget_vars *wv)
 			break;
 		ctx->stat.reads += rd;
 
-		fprintf(stderr, "Socket %d: mtcp_read ret: %d, total_recv: %lu, "
+		TRACE_APP( "Socket %d: mtcp_read ret: %d, total_recv: %lu, "
 				"header_set: %d, header_len: %u, file_len: %lu\n", 
 				sockid, rd, wv->recv + rd, 
 				wv->headerset, wv->header_len, wv->file_len);
