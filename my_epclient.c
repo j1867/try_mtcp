@@ -353,13 +353,15 @@ RunSendDataMain(void *arg)
 
 		/* print statistics every second */
 		if (core == 0 && cur_tv.tv_sec > prev_tv.tv_sec) {
-		  	PrintStats();
+		  	//PrintStats();
 			prev_tv = cur_tv;
 		}
 ///////////////////////////////////////////////////////////
 
 		while (ctx->pending < concurrency && ctx->started < ctx->target) {
-			if (CreateConnection(ctx) < 0) {
+			int to_debug = CreateConnection(ctx) ;
+			fprintf(stderr, "%d\n", to_debug);
+			if (to_debug < 0) {
 				done[core] = TRUE;
 				break;
 			}
@@ -379,7 +381,6 @@ RunSendDataMain(void *arg)
 		}
 
 		for (i = 0; i < nevents; i++) {
-
 			if (events[i].events & MTCP_EPOLLERR) {
 				int err;
 				socklen_t len = sizeof(err);
@@ -415,6 +416,7 @@ RunSendDataMain(void *arg)
 			break;
 		}
 	}
+	fprintf(stderr, "DONE.......................\n");
 
 	TRACE_INFO("Wget thread %d waiting for mtcp to be destroyed.\n", core);
 	DestroyContext(ctx);
@@ -447,6 +449,7 @@ main(int argc, char **argv)
 	int ret;
 	int i, o;
 	int process_cpu;
+	fprintf(stderr, "My client start~~~~~~~~\n");
 
 	if (argc < 3) {
 		TRACE_CONFIG("Too few arguments!\n");
