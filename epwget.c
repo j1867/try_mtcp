@@ -280,6 +280,7 @@ DownloadComplete(thread_context_t ctx, int sockid, struct wget_vars *wv)
 	uint64_t tdiff;
 
 	TRACE_APP("Socket %d File download complete!\n", sockid);
+	fprintf(stderr, "Completed~~~~~~~~~~~~~\n");
 	gettimeofday(&wv->t_end, NULL);
 	CloseConnection(ctx, sockid);
 	ctx->stat.completes++;
@@ -410,7 +411,7 @@ HandleReadEvent(thread_context_t ctx, int sockid, struct wget_vars *wv)
 					"header: %u file: %lu recv: %lu write: %lu\n", 
 					sockid, wv->header_len, wv->file_len, 
 					wv->recv - wv->header_len, wv->write);
-			DownloadComplete(ctx, sockid, wv);
+			 DownloadComplete(ctx, sockid, wv);
 
 			return 0;
 		}
