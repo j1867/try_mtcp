@@ -233,12 +233,14 @@ SendData(thread_context_t ctx, int sockid, struct wget_vars *wv)
 				"try: %d, sent: %d\n", sockid, len, wr);
 	}
 	fprintf(stderr, "Socket %d HTTP Request of %d bytes. sent.\n", sockid, wr);
-	ctx->stat.completes++;
+
 	wv->request_sent = TRUE;
 	ev.events = MTCP_EPOLLIN;
 	ev.data.sockid = sockid;
 	mtcp_epoll_ctl(ctx->mctx, ctx->ep, MTCP_EPOLL_CTL_MOD, sockid, &ev);
 	gettimeofday(&wv->t_start, NULL);
+	CloseConnection(ctx, sockid);
+		ctx->stat.completes++;
 	return 0;
 }
 /*----------------------------------------------------------------------------*/
@@ -410,9 +412,11 @@ RunSendDataMain(void *arg)
 		}
 
 		if (ctx->done >= ctx->target) {
+			/*
 			fprintf(stdout, "[CPU %d] Completed %d connections, "
 					"errors: %d incompletes: %d\n", 
 					ctx->core, ctx->done, ctx->errors, ctx->incompletes);
+					*/
 			break;
 		}
 	}
