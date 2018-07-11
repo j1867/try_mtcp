@@ -1,4 +1,5 @@
 git pull
 cp * ../mtcp/apps/example
-cd ../mtcp/apps/example
-make
+# cd ../mtcp/apps/example
+
+# make
