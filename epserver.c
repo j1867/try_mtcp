@@ -206,6 +206,7 @@ HandleReadEvent(struct thread_context *ctx, int sockid, struct server_vars *sv)
 	if (rd <= 0) {
 		return rd;
 	}
+	fprintf(stderr, "%s/n", buf );
 	memcpy(sv->request + sv->recv_len, 
 			(char *)buf, MIN(rd, HTTP_HEADER_LEN - sv->recv_len));
 	sv->recv_len += rd;
