@@ -206,12 +206,10 @@ HandleReadEvent(struct thread_context *ctx, int sockid, struct server_vars *sv)
 	if (rd <= 0) {
 		return rd;
 	}
-	fprintf(stderr, "%s/n", buf );
+	fprintf(stderr, "%s\n", buf );
 	memcpy(sv->request + sv->recv_len, 
 			(char *)buf, MIN(rd, HTTP_HEADER_LEN - sv->recv_len));
 	sv->recv_len += rd;
-	//sv->request[rd] = '\0';
-	//fprintf(stderr, "HTTP Request: \n%s", request);
 	sv->request_len = find_http_header(sv->request, sv->recv_len);
 	if (sv->request_len <= 0) {
 		TRACE_ERROR("Socket %d: Failed to parse HTTP request header.\n"
@@ -238,6 +236,7 @@ HandleReadEvent(struct thread_context *ctx, int sockid, struct server_vars *sv)
 	}
 
 	/* Find file in cache */
+	/*
 	scode = 404;
 	for (i = 0; i < nfiles; i++) {
 		if (strcmp(sv->fname, fcache[i].fullname) == 0) {
@@ -249,7 +248,7 @@ HandleReadEvent(struct thread_context *ctx, int sockid, struct server_vars *sv)
 	}
 	TRACE_APP("Socket %d File size: %ld (%ldMB)\n", 
 			sockid, sv->fsize, sv->fsize / 1024 / 1024);
-
+	*/
 	/* Response header handling */
 	time(&t_now);
 	strftime(t_str, 128, "%a, %d %b %Y %X GMT", gmtime(&t_now));
@@ -258,6 +257,7 @@ HandleReadEvent(struct thread_context *ctx, int sockid, struct server_vars *sv)
 	else
 		sprintf(keepalive_str, "Close");
 
+/*
 	sprintf(response, "HTTP/1.1 %d %s\r\n"
 			"Date: %s\r\n"
 			"Server: Webserver on Middlebox TCP (Ubuntu)\r\n"
@@ -270,6 +270,7 @@ HandleReadEvent(struct thread_context *ctx, int sockid, struct server_vars *sv)
 	TRACE_APP("Socket %d Sent response header: try: %d, sent: %d\n", 
 			sockid, len, sent);
 	assert(sent == len);
+
 	sv->rspheader_sent = TRUE;
 
 	ev.events = MTCP_EPOLLIN | MTCP_EPOLLOUT;
@@ -277,7 +278,7 @@ HandleReadEvent(struct thread_context *ctx, int sockid, struct server_vars *sv)
 	mtcp_epoll_ctl(ctx->mctx, ctx->ep, MTCP_EPOLL_CTL_MOD, sockid, &ev);
 
 	SendUntilAvailable(ctx, sockid, sv);
-
+*/
 	return rd;
 }
 /*----------------------------------------------------------------------------*/
