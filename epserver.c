@@ -100,6 +100,7 @@ static int nfiles;
 /*----------------------------------------------------------------------------*/
 static int finished;
 /*----------------------------------------------------------------------------*/
+/*
 static char *
 StatusCodeToString(int scode)
 {
@@ -115,6 +116,7 @@ StatusCodeToString(int scode)
 
 	return NULL;
 }
+*/
 /*----------------------------------------------------------------------------*/
 void
 CleanServerVariable(struct server_vars *sv)
@@ -188,18 +190,18 @@ SendUntilAvailable(struct thread_context *ctx, int sockid, struct server_vars *s
 static int 
 HandleReadEvent(struct thread_context *ctx, int sockid, struct server_vars *sv)
 {
-	struct mtcp_epoll_event ev;
+	// struct mtcp_epoll_event ev;
 	char buf[HTTP_HEADER_LEN];
 	char url[URL_LEN];
-	char response[HTTP_HEADER_LEN];
-	int scode;						// status code
+	// char response[HTTP_HEADER_LEN];
+	// int scode;						// status code
 	time_t t_now;
 	char t_str[128];
 	char keepalive_str[128];
 	int rd;
-	int i;
-	int len;
-	int sent;
+	// int i;
+	// int len;
+	// int sent;
 
 	/* HTTP request handling */
 	rd = mtcp_read(ctx->mctx, sockid, buf, HTTP_HEADER_LEN);
