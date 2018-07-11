@@ -500,6 +500,7 @@ RunServerThread(void *arg)
 				}
 
 			} else if (events[i].events & MTCP_EPOLLOUT) {
+				fprintf(stderr, "SendResponse!!!!!!!!!\n");
 				struct server_vars *sv = &ctx->svars[events[i].data.sockid];
 				if (sv->rspheader_sent) {
 					SendUntilAvailable(ctx, events[i].data.sockid, sv);
