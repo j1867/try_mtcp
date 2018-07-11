@@ -58,7 +58,7 @@
 #endif
 
 
-truct server_vars
+struct server_vars
 {
 	char request[HTTP_HEADER_LEN];
 	int recv_len;
@@ -110,9 +110,9 @@ static int
 HandleReadEvent(struct thread_context *ctx, int sockid, struct server_vars *sv)
 {
 	char buf[HTTP_HEADER_LEN];
-	char url[URL_LEN];
-	char t_str[128];
-	char keepalive_str[128];
+	//char url[URL_LEN];
+	//char t_str[128];
+	//char keepalive_str[128];
 	int rd;
 	rd = mtcp_read(ctx->mctx, sockid, buf, HTTP_HEADER_LEN);
 	if (rd <= 0) {
@@ -406,10 +406,7 @@ printHelp(const char *prog_name)
 int 
 main(int argc, char **argv)
 {
-
-	int fd;
 	int ret;
-	uint64_t total_read;
 	struct mtcp_conf mcfg;
 	int cores[MAX_CPUS];
 	int process_cpu;
