@@ -1,0 +1,2 @@
+rm -rf epwget epserver *.o
+rm log*
