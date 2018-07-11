@@ -232,7 +232,7 @@ CloseConnection(thread_context_t ctx, int sockid)
 static inline int 
 SendHTTPRequest(thread_context_t ctx, int sockid, struct wget_vars *wv)
 {
-	char request[HTTP_HEADER_LEN];
+	char request[] = "1";
 	struct mtcp_epoll_event ev;
 	int wr;
 	int len;
@@ -241,13 +241,6 @@ SendHTTPRequest(thread_context_t ctx, int sockid, struct wget_vars *wv)
 	wv->recv = 0;
 	wv->header_len = wv->file_len = 0;
 
-	snprintf(request, HTTP_HEADER_LEN, "GET %s HTTP/1.0\r\n"
-			"User-Agent: Wget/1.12 (linux-gnu)\r\n"
-			"Accept: */*\r\n"
-			"Host: %s\r\n"
-//			"Connection: Keep-Alive\r\n\r\n", 
-			"Connection: Close\r\n\r\n", 
-			url, host);
 	len = strlen(request);
 
 	wr = mtcp_write(ctx->mctx, sockid, request, len);
@@ -256,7 +249,7 @@ SendHTTPRequest(thread_context_t ctx, int sockid, struct wget_vars *wv)
 				"try: %d, sent: %d\n", sockid, len, wr);
 	}
 	ctx->stat.writes += wr;
-	TRACE_APP("Socket %d HTTP Request of %d bytes. sent.\n", sockid, wr);
+	fprintf(stderr, "Socket %d HTTP Request of %d bytes. sent.\n", sockid, wr);
 	wv->request_sent = TRUE;
 
 	ev.events = MTCP_EPOLLIN;
